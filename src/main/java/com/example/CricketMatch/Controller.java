@@ -23,6 +23,7 @@ public class Controller {
     }
     @GetMapping("/Verdict")
     public Match greeting(@RequestParam(value = "T1", defaultValue = "Mumbai") String T1,@RequestParam(value = "T2", defaultValue = "Chennai") String T2, @RequestParam(value = "overs", defaultValue = "20") String overs) {
+        // Return String kk to look at the webpage and change function type to string
         Player[] Team1=new Player[11];
         Player[] Team2=new Player[11];
         int j;
@@ -167,6 +168,7 @@ public class Controller {
         jj[4]=jj[4]+" <u><b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b></u>";
         jj[0]=jj[0]+"<u><b><i>"+m.out+"</u></b></i>";
         String kk="<center>"+jj[1]+"<br>"+jj[2]+"<br>"+jj[3]+"<br>"+jj[4]+"<br>"+"<h2><b><i>"+jj[0]+"</i></b></h2></center>";
+
         return m;
     }
 
