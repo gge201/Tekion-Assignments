@@ -23,7 +23,7 @@ public class Controller {
                 "</form> " +"</h3></i></body>";
     }
     @GetMapping("/Verdict")
-    public Innings greeting(@RequestParam(value = "T1", defaultValue = "Mumbai") String T1,@RequestParam(value = "T2", defaultValue = "Chennai") String T2, @RequestParam(value = "overs", defaultValue = "20") String overs) {
+    public String greeting(@RequestParam(value = "T1", defaultValue = "Mumbai") String T1,@RequestParam(value = "T2", defaultValue = "Chennai") String T2, @RequestParam(value = "overs", defaultValue = "20") String overs) {
         Player[] Team1=new Player[11];
         Player[] Team2=new Player[11];
         int j;
@@ -60,13 +60,13 @@ public class Controller {
                 ss="bgcolor=\"#F0FFFF\"";
             }
             jj[1] = jj[1] + "<tr "+ss+">\n" +
-                    "    <td><i>" + Te1.T1[i].getName() + "</i></td>" +
-                    "    <td><i>" + Te1.T1[i].getOut() + "</i></td>" +
-                    "    <td><i>" + Te1.T1[i].getRuns() + "</td>" +
-                    "    <td><i>" + Te1.T1[i].getBalls() + "</td>" +
-                    "    <td><i>" + Te1.T1[i].getFours() + "</td>" +
-                    "    <td><i>" + Te1.T1[i].getSixes() + "</td>" +
-                    "    <td><i>" + df2.format(Te1.T1[i].getSr()) + "</td>" +
+                    "    <td><i>" + Team1[i].getName() + "</i></td>" +
+                    "    <td><i>" + Team1[i].getOut() + "</i></td>" +
+                    "    <td><i>" + Team1[i].getRuns() + "</td>" +
+                    "    <td><i>" + Team1[i].getBalls() + "</td>" +
+                    "    <td><i>" + Team1[i].getFours() + "</td>" +
+                    "    <td><i>" + Team1[i].getSixes() + "</td>" +
+                    "    <td><i>" + df2.format(Team1[i].getSr()) + "</td>" +
                     "  </tr>" + " ";
             ss="";
         }
@@ -85,16 +85,16 @@ public class Controller {
                 "    <th>W</th>\n" +
                 "    <th>E</th>\n" +
                 "  </tr>";
-        for( i=0;i<5;i++)
+        for( i=6;i<11;i++)
         {
-            if((Te1.T2[i].getOverbowled() > 0) || (Te1.T2[i].getLb()>0)) {
+            if((Team2[i].getOverbowled() > 0) || (Team2[i].getLb()>0)) {
                 jj[2] = jj[2] + "<tr>\n" +
-                        "    <td><i>" + Te1.T2[i].getName() + "</i></td>\n" +
-                        "    <td><i>" + Te1.T2[i].getOverbowled() + "." + Te1.T2[i].getLb() + "</td>\n" +
-                        "    <td><i>" + Te1.T2[i].getMaiden() + "</td>\n" +
-                        "    <td><i>" + Te1.T2[i].getRunsgiven() + "</td>\n" +
-                        "    <td><i>" + Te1.T2[i].getWickets() + "</td>\n" +
-                        "    <td><i>" + df2.format(Te1.T2[i].getEconomy()) + "</td>\n" +
+                        "    <td><i>" + Team2[i].getName() + "</i></td>\n" +
+                        "    <td><i>" + Team2[i].getOverbowled() + "." + Team2[i].getLb() + "</td>\n" +
+                        "    <td><i>" + Team2[i].getMaiden() + "</td>\n" +
+                        "    <td><i>" + Team2[i].getRunsgiven() + "</td>\n" +
+                        "    <td><i>" + Team2[i].getWickets() + "</td>\n" +
+                        "    <td><i>" + df2.format(Team2[i].getEconomy()) + "</td>\n" +
                         "  </tr>" + " ";
             }
         }
@@ -122,13 +122,13 @@ public class Controller {
                 ss="bgcolor=\"#F0FFFF\"";
             }
             jj[3] = jj[3] + "<tr "+ss+">\n" +
-                    "    <td><i>" + Te2.T1[i].getName() + "</i></td>" +
-                    "    <td><i>" + Te2.T1[i].getOut() + "</i></td>" +
-                    "    <td><i>" + Te2.T1[i].getRuns() + "</td>" +
-                    "    <td><i>" + Te2.T1[i].getBalls() + "</td>" +
-                    "    <td><i>" + Te2.T1[i].getFours() + "</td>" +
-                    "    <td><i>" + Te2.T1[i].getSixes() + "</td>" +
-                    "    <td><i>" + df2.format(Te2.T1[i].getSr()) + "</td>" +
+                    "    <td><i>" + Team2[i].getName() + "</i></td>" +
+                    "    <td><i>" + Team2[i].getOut() + "</i></td>" +
+                    "    <td><i>" + Team2[i].getRuns() + "</td>" +
+                    "    <td><i>" + Team2[i].getBalls() + "</td>" +
+                    "    <td><i>" + Team2[i].getFours() + "</td>" +
+                    "    <td><i>" + Team2[i].getSixes() + "</td>" +
+                    "    <td><i>" + df2.format(Team2[i].getSr()) + "</td>" +
                     "  </tr>" + " ";
             ss="";
         }
@@ -146,16 +146,16 @@ public class Controller {
                 "    <th>E</th>\n" +
                 "  </tr>";
 
-        for( i=0;i<5;i++)
+        for( i=6;i<11;i++)
         {
-            if((Te2.T2[i].getOverbowled() > 0) || (Te2.T2[i].getLb()>0)) {
+            if((Team1[i].getOverbowled() > 0) || (Team1[i].getLb()>0)) {
                 jj[4] = jj[4] + "<tr>\n" +
-                        "    <td><i>" + Te2.T2[i].getName() + "</i></td>\n" +
-                        "    <td><i>" + Te2.T2[i].getOverbowled() + "." + Te2.T2[i].getLb() + "</td>\n" +
-                        "    <td><i>" + Te2.T2[i].getMaiden() + "</td>\n" +
-                        "    <td><i>" + Te2.T2[i].getRunsgiven() + "</td>\n" +
-                        "    <td><i>" + Te2.T2[i].getWickets() + "</td>\n" +
-                        "    <td><i>" + df2.format(Te2.T2[i].getEconomy()) + "</td>\n" +
+                        "    <td><i>" + Team1[i].getName() + "</i></td>\n" +
+                        "    <td><i>" + Team1[i].getOverbowled() + "." + Team1[i].getLb() + "</td>\n" +
+                        "    <td><i>" + Team1[i].getMaiden() + "</td>\n" +
+                        "    <td><i>" + Team1[i].getRunsgiven() + "</td>\n" +
+                        "    <td><i>" + Team1[i].getWickets() + "</td>\n" +
+                        "    <td><i>" + df2.format(Team1[i].getEconomy()) + "</td>\n" +
                         "  </tr>" + " ";
             }
         }
@@ -168,7 +168,7 @@ public class Controller {
         jj[4]=jj[4]+" <u><b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b></u>";
         jj[0]=jj[0]+"<u><b><i>"+m.out+"</u></b></i>";
         String kk="<center>"+jj[1]+"<br>"+jj[2]+"<br>"+jj[3]+"<br>"+jj[4]+"<br>"+"<h2><b><i>"+jj[0]+"</i></b></h2></center>";
-        return Te1;
+        return kk;
     }
 
 }
