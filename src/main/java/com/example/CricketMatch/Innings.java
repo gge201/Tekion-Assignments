@@ -71,8 +71,16 @@ public class Innings {
     public int getNs() {
         return ns;
     }
+    Player[] T1=new Player[11];
+    Player[] T2=new Player[11];
 
+    public Player[] getT1() {
+        return T1;
+    }
 
+    public Player[] getT2() {
+        return T2;
+    }
 
     Innings(int overs, int prev, Player Team1[], Player Team2[]) {
         name=Team1[0].getTeam();
@@ -157,5 +165,7 @@ public class Innings {
         {
             Team2[i].setEco(Team2[i].getRunsgiven(),Team2[i].getOverbowled(),Team2[i].getLb());
         }
+        T1=Team1;
+        T2=Team2;
     }
 }

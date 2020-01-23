@@ -3,6 +3,7 @@ import java.util.*;
 
 public class Match {
     int[] score1=new int[2];
+    Innings I1,I2;
     int[] wickets=new int[2];
     int overs=50;
     String team1,team2;
@@ -64,7 +65,17 @@ public class Match {
         return vv;
     }
 
+    public Innings getI1() {
+        return I1;
+    }
+
+    public Innings getI2() {
+        return I2;
+    }
+
     Match(Innings T1, Innings T2){
+        I1=T1;
+        I2=T2;
         score1[0]=T1.getScore();
         overs=T1.getOvers();
         score1[1]=T2.getScore();

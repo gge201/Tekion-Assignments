@@ -1,6 +1,10 @@
 package com.example.CricketMatch;
 
+import java.text.DecimalFormat;
+
 public class Player {
+
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     private String name,team;
 
@@ -32,11 +36,11 @@ public class Player {
         return balls;
     }
 
-    public double getSr() {
+    public String getSr() {
         return sr;
     }
 
-    public double getEconomy() {
+    public String getEconomy() {
         return economy;
     }
 
@@ -90,11 +94,11 @@ public class Player {
         this.balls = balls;
     }
 
-    public void setSr(double sr) {
+    public void setSr(String sr) {
         this.sr = sr;
     }
 
-    public void setEconomy(double economy) {
+    public void setEconomy(String economy) {
         this.economy = economy;
     }
 
@@ -122,8 +126,8 @@ public class Player {
     private int fours=0;
     private int sixes=0;
     private int balls=0;
-    private double sr=0.0;
-    private double economy=0.0;
+    private String sr="0.0";
+    private String economy="0.0";
     private int overbowled=0;
     private int maiden=0;
     private int wickets=0;
@@ -138,20 +142,20 @@ public class Player {
     {
         if(ball==0)
         {
-            sr=0.0;
+            sr="0.0";
         }
         else{
-            sr=(((double)100*run)/ball);
+            sr=df2.format(((double)100*run)/ball);
         }
     }
     public void setEco(int runsgive,int overbowl,int l)
     {
         if(overbowl==0 && l==0)
         {
-            economy=0;
+            economy="0.0";
         }
         else{
-            economy=(((double)6*runsgive)/(6*overbowl+l));
+            economy= df2.format(((double) 6 * runsgive) / (6 * overbowl + l));
         }
     }
 }

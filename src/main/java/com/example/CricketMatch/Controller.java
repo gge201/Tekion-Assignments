@@ -1,5 +1,4 @@
 package com.example.CricketMatch;
-import java.text.DecimalFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -7,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Controller {
-    private static DecimalFormat df2 = new DecimalFormat("#.##");
+
     @RequestMapping("/")
 
     public String out()
@@ -23,7 +22,7 @@ public class Controller {
                 "</form> " +"</h3></i></body>";
     }
     @GetMapping("/Verdict")
-    public String greeting(@RequestParam(value = "T1", defaultValue = "Mumbai") String T1,@RequestParam(value = "T2", defaultValue = "Chennai") String T2, @RequestParam(value = "overs", defaultValue = "20") String overs) {
+    public Match greeting(@RequestParam(value = "T1", defaultValue = "Mumbai") String T1,@RequestParam(value = "T2", defaultValue = "Chennai") String T2, @RequestParam(value = "overs", defaultValue = "20") String overs) {
         Player[] Team1=new Player[11];
         Player[] Team2=new Player[11];
         int j;
@@ -66,7 +65,7 @@ public class Controller {
                     "    <td><i>" + Team1[i].getBalls() + "</td>" +
                     "    <td><i>" + Team1[i].getFours() + "</td>" +
                     "    <td><i>" + Team1[i].getSixes() + "</td>" +
-                    "    <td><i>" + df2.format(Team1[i].getSr()) + "</td>" +
+                    "    <td><i>" + Team1[i].getSr() + "</td>" +
                     "  </tr>" + " ";
             ss="";
         }
@@ -94,7 +93,7 @@ public class Controller {
                         "    <td><i>" + Team2[i].getMaiden() + "</td>\n" +
                         "    <td><i>" + Team2[i].getRunsgiven() + "</td>\n" +
                         "    <td><i>" + Team2[i].getWickets() + "</td>\n" +
-                        "    <td><i>" + df2.format(Team2[i].getEconomy()) + "</td>\n" +
+                        "    <td><i>" + Team2[i].getEconomy() + "</td>\n" +
                         "  </tr>" + " ";
             }
         }
@@ -128,7 +127,7 @@ public class Controller {
                     "    <td><i>" + Team2[i].getBalls() + "</td>" +
                     "    <td><i>" + Team2[i].getFours() + "</td>" +
                     "    <td><i>" + Team2[i].getSixes() + "</td>" +
-                    "    <td><i>" + df2.format(Team2[i].getSr()) + "</td>" +
+                    "    <td><i>" + Team2[i].getSr() + "</td>" +
                     "  </tr>" + " ";
             ss="";
         }
@@ -155,7 +154,7 @@ public class Controller {
                         "    <td><i>" + Team1[i].getMaiden() + "</td>\n" +
                         "    <td><i>" + Team1[i].getRunsgiven() + "</td>\n" +
                         "    <td><i>" + Team1[i].getWickets() + "</td>\n" +
-                        "    <td><i>" + df2.format(Team1[i].getEconomy()) + "</td>\n" +
+                        "    <td><i>" + Team1[i].getEconomy()+ "</td>\n" +
                         "  </tr>" + " ";
             }
         }
@@ -168,7 +167,7 @@ public class Controller {
         jj[4]=jj[4]+" <u><b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b></u>";
         jj[0]=jj[0]+"<u><b><i>"+m.out+"</u></b></i>";
         String kk="<center>"+jj[1]+"<br>"+jj[2]+"<br>"+jj[3]+"<br>"+jj[4]+"<br>"+"<h2><b><i>"+jj[0]+"</i></b></h2></center>";
-        return kk;
+        return m;
     }
 
 }
