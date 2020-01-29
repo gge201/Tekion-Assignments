@@ -18,19 +18,11 @@ public class Innings {
         return wickets;
     }
 
-    public int getOvers() {
-        return overs;
-    }
-
-    public int getJ() {
-        return j;
-    }
-
     public String getName() {
         return name;
     }
 
-    private int overs;
+
     int j;
     private String name;
     private int div=0,mod=0;
@@ -112,21 +104,21 @@ public class Innings {
         int i = 0;
         int t=0;
         int over=0;
-        this.overs = overs;
+
         div = overs;
         int count=0,curr=6;
-        for (i = 0; i < (6 * this.overs); i++) {
+        for (i = 0; i < (6 * overs); i++) {
             r1=rand.nextFloat();
             r2=rand.nextFloat();
             r3 = rand.nextInt(7);
             if(Team1[st].getType()=="Batsman"){
-                if(r1<=Team1[st].getRating()*0.1 && r2<=Team2[curr].getRating()*0.035)
+                if(r1<=Team1[st].getRating()*0.1 && r2<=Team2[curr].getRating()*0.03)
                 {
                     if(Team1[st].getRating()<Team2[curr].getRating()) {
-                        r3=rand.nextInt(3);
+                        r3=rand.nextInt(5);
                     }
                 }
-                else if (r1>Team1[st].getRating()*0.1 && r2>Team2[curr].getRating()*0.035)
+                else if (r1>Team1[st].getRating()*0.1 && r2>Team2[curr].getRating()*0.03)
                 {
                     if(Team1[st].getRating()>Team2[curr].getRating()) {
                         r3 = rand.nextInt(3);
@@ -135,13 +127,13 @@ public class Innings {
                         r3=7;
                     }
                 }
-                else if(r1>Team1[st].getRating()*0.1 && r2<=Team2[curr].getRating()*0.035){
+                else if(r1>Team1[st].getRating()*0.1 && r2<=Team2[curr].getRating()*0.03){
                     r3=7;
                 }
 
             }
             else{
-                if(r2<Team2[curr].getRating()*0.05)
+                if(r2<Team2[curr].getRating()*0.045)
                 {
                     r3 = 7;
                 }
@@ -208,7 +200,7 @@ public class Innings {
                 break;
             }
             if ( (wickets == 10 || score > prev) && prev>0) {
-                ball=6*this.overs-(i+1);
+                ball=6*overs-(i+1);
                 div=(i+1)/6;
                 mod=(i+1)%6;
                 break;
