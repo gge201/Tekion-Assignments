@@ -1,4 +1,5 @@
 package com.example.CricketMatch;
+import com.example.CricketMatch.Match;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,24 +23,10 @@ public class Controller {
                 "</form> " +"</h3></i></body>";
     }
     @GetMapping("/Verdict")
-    public Match greeting(@RequestParam(value = "T1", defaultValue = "Mumbai") String T1,@RequestParam(value = "T2", defaultValue = "Chennai") String T2, @RequestParam(value = "overs", defaultValue = "20") String overs) {
+    public String Greeting(@RequestParam(value = "T1", defaultValue = "Mumbai") String T1,@RequestParam(value = "T2", defaultValue = "Chennai") String T2, @RequestParam(value = "overs", defaultValue = "20") String overs) {
         // Return String kk to look at the webpage and change function type to string
-        Player[] Team1=new Player[11];
-        Player[] Team2=new Player[11];
-        int j;
-
-        for(j=0;j<11;j++)
-        {
-            Team1[j]=new Player(T1+" Player-"+ j,T1);
-            Team2[j]=new Player(T2+" Player-"+ j,T2);
-        }
-
-        Innings Te1=new Innings(Integer.parseInt(overs),0,Team1,Team2);
-        Innings Te2= new Innings(Integer.parseInt(overs),Te1.getScore(),Team2,Team1);
-
-        Match m=new Match(Te1,Te2,Team1,Team2);
-
-        return m;
+        Match m=new Match(T1,T2,Integer.parseInt(overs));
+        return m.getKk();
     }
 
 }

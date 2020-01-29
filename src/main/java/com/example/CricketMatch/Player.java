@@ -8,6 +8,7 @@ public class Player {
 
     private String name,team;
 
+
     public String getName() {
         return name;
     }
@@ -145,7 +146,7 @@ public class Player {
             sr="0.0";
         }
         else{
-            sr=df2.format(((double)100*run)/ball);
+            sr=df2.format(((float)100*run)/ball);
         }
     }
     public void setEco(int runsgive,int overbowl,int l)
@@ -155,7 +156,7 @@ public class Player {
             economy="0.0";
         }
         else{
-            economy= df2.format(((double) 6 * runsgive) / (6 * overbowl + l));
+            economy= df2.format(((float) 6 * runsgive) / (6 * overbowl + l));
         }
     }
 }

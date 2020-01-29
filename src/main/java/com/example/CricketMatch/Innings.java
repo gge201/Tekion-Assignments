@@ -82,7 +82,9 @@ public class Innings {
         return T2;
     }
 
-    Innings(int overs, int prev, Player Team1[], Player Team2[]) {
+    Innings(int overs, int prev, Player Team1[], Player Team2[])
+    {
+
         name=Team1[0].getTeam();
         int i = 0;
         int t=0;
