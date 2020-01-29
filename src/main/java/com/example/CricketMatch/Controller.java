@@ -23,10 +23,10 @@ public class Controller {
                 "</form> " +"</h3></i></body>";
     }
     @GetMapping("/Verdict")
-    public String Greeting(@RequestParam(value = "T1", defaultValue = "Mumbai") String T1,@RequestParam(value = "T2", defaultValue = "Chennai") String T2, @RequestParam(value = "overs", defaultValue = "20") String overs) {
+    public Match Greeting(@RequestParam(value = "T1", defaultValue = "Mumbai") String T1,@RequestParam(value = "T2", defaultValue = "Chennai") String T2, @RequestParam(value = "overs", defaultValue = "20") String overs) {
         // Return String kk to look at the webpage and change function type to string
         Match m=new Match(T1,T2,Integer.parseInt(overs));
-        return m.getKk();
+        return m;
     }
 
 }
