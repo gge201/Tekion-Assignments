@@ -2,30 +2,18 @@ package com.example.CricketMatch;
 
 public class Match {
 
-    private int[] score1=new int[2];
-    private String kk;
-    public String getKk() {
+    
+   private String kk;
+  /*  public String getKk() {
         return kk;
-    }
-
-
+    }*/
     private Innings i1,i2;
-    private int[] wickets=new int[2];
     private int overs=50;
     private String team1,team2;
-    private int div1,div2,mod1,mod2;
-    private String out;
+    private String Result;
     private int remain=0;
     private int tt=1;
     private String vv="runs";
-
-    public int[] getScore1() {
-        return score1;
-    }
-
-    public int[] getWickets() {
-        return wickets;
-    }
 
     public int getOvers() {
         return overs;
@@ -39,24 +27,8 @@ public class Match {
         return team2;
     }
 
-    public int getDiv1() {
-        return div1;
-    }
-
-    public int getDiv2() {
-        return div2;
-    }
-
-    public int getMod1() {
-        return mod1;
-    }
-
-    public int getMod2() {
-        return mod2;
-    }
-
-    public String getOut() {
-        return out;
+    public String getResult() {
+        return Result;
     }
 
     public int getRemain() {
@@ -80,6 +52,8 @@ public class Match {
     }
 
     public Match(String Team1, String Team2, int overs){
+        team1=Team1;
+        team2=Team2;
         Team team1=new Team(Team1,overs);
         Team team2=new Team(Team2,overs);
         for(int i=0;i<11;i++)
@@ -93,16 +67,8 @@ public class Match {
 
         i1=I1;
         i2=I2;
-        score1[0]=I1.getScore();
-        this.overs=I1.getOvers();
-        score1[1]=I2.getScore();
-        wickets[0]=I1.getWickets();
-        wickets[1]=I2.getWickets();
-        div1=I1.getDiv();
-        div2=I2.getDiv();
-        mod1=I1.getMod();
-        mod2=I2.getMod();
-        remain=score1[0]-score1[1];
+        this.overs=overs;
+        remain=I1.getScore()-I2.getScore();
         String jj[]=new String[5];
         jj[0]=jj[1]=jj[2]=jj[3]=jj[4]="";
         int i;
@@ -230,26 +196,26 @@ public class Match {
             jj[4]=jj[4]+"<i>"+I2.getRun().get(i)+"/"+(i+1)+" ("+I2.getBw().get(i)+" - "+I2.getOv().get(i)+" ) </i><br>";
         }
 
-        if(score1[0]==score1[1])
+        if(I1.getScore()==I2.getScore())
         {
-            out = "Verdict --  Match Tied";
+            Result = "Verdict --  Match Tied";
             tt=0;
         }
-        if(score1[1]>score1[0])
+        if(I2.getScore()>I1.getScore())
         {
             tt=2;
-            remain=10-wickets[1];
+            remain=10-I2.getWickets();
             vv="wickets";
         }
         if(tt==1) {
-            out = "Verdict --  " + team1.getTeamName() + " won by " + remain + " " + vv + " ( " + I2.getBall() + " balls left )";
+            Result = "Verdict --  " + team1.getTeamName() + " won by " + remain + " " + vv + " ( " + I2.getBall() + " balls left )";
         }
         else if(tt==2){
-            out = "Verdict --  " + team2.getTeamName() + " won by " + remain + " " + vv + " ( " + I2.getBall() + " balls left )";
+            Result = "Verdict --  " + team2.getTeamName() + " won by " + remain + " " + vv + " ( " + I2.getBall() + " balls left )";
         }
         jj[4]=jj[4]+"<br>";
         jj[4]=jj[4]+" <u><b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b></u>";
-        jj[0]=jj[0]+"<u><b><i>"+out+"</u></b></i>";
+        jj[0]=jj[0]+"<u><b><i>"+Result+"</u></b></i>";
         kk="<center>"+jj[1]+"<br>"+jj[2]+"<br>"+jj[3]+"<br>"+jj[4]+"<br>"+"<h2><b><i>"+jj[0]+"</i></b></h2></center>";
 
 
