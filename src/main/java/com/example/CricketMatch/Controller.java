@@ -20,12 +20,12 @@ public class Controller {
                 "</form> " +"</h4></i>";
     }
     @GetMapping("/Verdict")
-    public String greeting(@RequestParam(value = "T1", defaultValue = "Mumbai") String T1,@RequestParam(value = "T2", defaultValue = "Chennai") String T2, @RequestParam(value = "overs", defaultValue = "20") String overs) {
+    public Match greeting(@RequestParam(value = "T1", defaultValue = "Mumbai") String T1,@RequestParam(value = "T2", defaultValue = "Chennai") String T2, @RequestParam(value = "overs", defaultValue = "20") String overs) {
         Team Team1=new Team(T1,Integer.parseInt(overs),0);
         Team Team2=new Team(T2,Integer.parseInt(overs),Team1.score);
         Match m=new Match(Team1,Team2);
         String jj=m.out;
-        return jj;
+        return m;
     }
 
 }
