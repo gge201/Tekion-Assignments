@@ -1,5 +1,4 @@
 package com.example.CricketMatch.Controller;
-import com.example.CricketMatch.Beans.Innings;
 import com.example.CricketMatch.Beans.Match;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,20 +1,12 @@
 package com.example.CricketMatch.Beans;
 
+
 import java.text.DecimalFormat;
-
 public class Player {
-    private Bowler bowler;
-    private Batsman batsman;
+    private BowlerInfo bowlerInfo;
+    private BatsmanInfo batsmanInfo;
 
-    public Bowler getBowler() {
-        return bowler;
-    }
-
-    public Batsman getBatsman() {
-        return batsman;
-    }
-
-    class Batsman{
+    class BatsmanInfo{
         private int runs;
         private int fours;
         private int sixes;
@@ -22,7 +14,7 @@ public class Player {
         private String sr;
         private String out="";
 
-        private Batsman()
+        private BatsmanInfo()
         {
             this.runs=0;
             this.fours=0;
@@ -83,14 +75,14 @@ public class Player {
             }
         }
     }
-    class Bowler{
+    class BowlerInfo{
         private String economy;
         private int overbowled;
         private int maiden;
         private int wickets;
         private int runsgiven;
         private int lb;
-        private Bowler(){
+        private BowlerInfo(){
             this.economy="0.0";
             this.overbowled=0;
             this.maiden=0;
@@ -179,12 +171,66 @@ public class Player {
 
     public void setType(String type) {
         this.type = type;
-        batsman=new Batsman();
+        batsmanInfo=new BatsmanInfo();
         if(type=="Bowler")
         {
-            bowler=new Bowler();
+            bowlerInfo=new BowlerInfo();
         }
     }
+
+    public BowlerInfo getBowlerInfo() {
+        return bowlerInfo;
+    }
+
+    public BatsmanInfo getBatsmanInfo() {
+        return batsmanInfo;
+    }
+
+    public void updateRuns(int runs) {
+        getBatsmanInfo().setRuns(getBatsmanInfo().getRuns()+runs);
+    }
+
+    public void updateRunsGiven(int runs) {
+        getBowlerInfo().setRunsgiven(getBowlerInfo().getRunsgiven()+runs);
+    }
+
+    public void updateFours() {
+        getBatsmanInfo().setFours(getBatsmanInfo().getFours()+1);
+    }
+
+    public void updateSixes() {
+        getBatsmanInfo().setSixes(getBatsmanInfo().getSixes()+1);
+    }
+
+    public void updateBallsDelivered() {
+        getBowlerInfo().setLb(getBowlerInfo().getLb()+1);
+    }
+
+    public void updateBallsFaced() {
+        getBatsmanInfo().setBalls(getBatsmanInfo().getBalls()+1);
+    }
+
+    public void updateWicketsTaken() {
+        getBowlerInfo().setWickets(getBowlerInfo().getWickets()+1);
+    }
+
+    public void updateMaidenOvers() {
+        getBowlerInfo().setMaiden(getBowlerInfo().getMaiden()+1);
+    }
+
+    public void updateOversBowled() {
+        getBowlerInfo().setOverbowled(getBowlerInfo().getOverbowled()+1);
+    }
+
+    public void updateStrikeRate() {
+        getBatsmanInfo().setSR(getBatsmanInfo().getRuns(),getBatsmanInfo().getBalls());
+    }
+
+    public void updateEconomy() {
+        getBowlerInfo().setEco(getBowlerInfo().getRunsgiven(),getBowlerInfo().getOverbowled(),getBowlerInfo().getLb());
+    }
+
+
 
     public void setRating(float rating) {
         this.rating = rating;
@@ -198,13 +244,16 @@ public class Player {
         return team;
     }
 
-
-
-
-
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setBowlerInfo(BowlerInfo bowlerInfo) {
+        this.bowlerInfo = bowlerInfo;
+    }
+
+    public void setBatsmanInfo(BatsmanInfo batsmanInfo) {
+        this.batsmanInfo = batsmanInfo;
     }
 
     public void setTeam(String team) {

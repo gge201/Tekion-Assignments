@@ -1,21 +1,30 @@
 package com.example.CricketMatch.Beans;
 
 import java.util.*;
-
 public class Innings {
     private List<String> bw=new ArrayList<String>();
     private List<String> ov=new ArrayList<String>();
     private List<Integer> run=new ArrayList<Integer>();
+
     private int score;
+
+    public int getBallsLeft() {
+        return ballsLeft;
+    }
+
     private int wickets;
+    int totalOver=0;
+    int over=0;
     int j;
     private int oversFaced=0, ballBowled =0;
-    private int ball=0;
-    private int striker=0, nonStriker =1;
+    private int ballsLeft=0;
+    private int striker=0, nonStriker =1,t;
     Random rand = new Random();
-    float r1=0,r2=0;
-    int r3=0;
-
+    private float r1=0,r2=0;
+    private int r3=0;
+    private int bowl;
+    private Map <String,Player.BatsmanInfo> T1=new HashMap<String,Player.BatsmanInfo>();
+    private Map <String,Player.BowlerInfo> T2=new HashMap<String, Player.BowlerInfo>();
     public int getOversFaced() {
         return oversFaced;
     }
@@ -24,9 +33,6 @@ public class Innings {
         return ballBowled;
     }
 
-    public int getBall() {
-        return ball;
-    }
 
     public int getStriker() {
         return striker;
@@ -44,113 +50,132 @@ public class Innings {
         return wickets;
     }
 
-    public List<Player> getT2() {
+    public Map<String,Player.BatsmanInfo> getT1() {
+        return T1;
+    }
+    public Map<String,Player.BowlerInfo> getT2() {
         return T2;
     }
 
-    public List<Player> getT1() {
-        return T1;
-    }
-
-
-    int bowl;
-    private void setRuns()
+    public void playInnings(int overs,int prevTarget,Player t1[],Player t2[])
     {
-        if(t1[striker].getType()=="Batsman"){
-            if(r1<=t1[striker].getRating()*0.1 && r2<=t2[bowl].getRating()*0.03)
-            {
-                if(t1[striker].getRating()<t2[bowl].getRating()) {
-                    r3=rand.nextInt(5);
+        totalOver=overs;
+        int i = 0;
+        int count=0;
+        bowl=6;
+        for (i = 0; i < (6 * overs); i++) {
+            r1=rand.nextFloat();
+            r2=rand.nextFloat();
+            r3 = rand.nextInt(7);
+            if(striker<=10 && nonStriker<=10) {
+                setRuns(t1,t2);
+                count = addRuns(t1,t2,count, i, prevTarget);
+                if((i+1)%6==0) count = overFinish(t2,count,i);
+                count = InningsFinish(prevTarget,count,i);
+                if(count==37)
+                {
+                    break;
                 }
-            }
-            else if (r1>t1[striker].getRating()*0.1 && r2>t2[bowl].getRating()*0.03)
-            {
-                if(t1[striker].getRating()>t2[bowl].getRating()) {
-                    r3 = rand.nextInt(3);
-                }
-                else{
-                    r3=7;
-                }
-            }
-            else if(r1>t1[striker].getRating()*0.1 && r2<=t2[bowl].getRating()*0.03){
-                r3=7;
-            }
-
-        }
-        else{
-            if(r2<t2[bowl].getRating()*0.045)
-            {
-                r3 = 7;
             }
         }
+        if(striker<=10 && t1[striker].getBatsmanInfo().getOut()=="")
+        {
+            T1.put(t1[striker].getName(),t1[striker].getBatsmanInfo());
+        }
+        if(nonStriker<=10) {
+            T1.put(t1[nonStriker].getName(),t1[nonStriker].getBatsmanInfo());
+        }
+        for(i=0; i<=Integer.min(Integer.max(striker, nonStriker),10); i++)
+        {
+            t1[i].updateStrikeRate();
+        }
+        for(i=6; i<(6+ (over>5 ? 5 : over)); i++)
+        {
+            t2[i].updateEconomy();
+            T2.put(t2[i].getName(),t2[i].getBowlerInfo());
+        }
+        return ;
     }
-    private int set(int count,int i,int over)
+    private void setRuns(Player []t1,Player []t2)
+    {
+            if (t1[striker].getType() == "Batsman") {
+                if (r1 <= t1[striker].getRating() * 0.1 && r2 <= t2[bowl].getRating() * 0.03) {
+                    if (t1[striker].getRating() < t2[bowl].getRating()) {
+                        r3 = rand.nextInt(5);
+                    }
+                } else if (r1 > t1[striker].getRating() * 0.1 && r2 > t2[bowl].getRating() * 0.03) {
+                    if (t1[striker].getRating() > t2[bowl].getRating()) {
+                        r3 = rand.nextInt(3);
+                    } else {
+                        r3 = 7;
+                    }
+                } else if (r1 > t1[striker].getRating() * 0.1 && r2 <= t2[bowl].getRating() * 0.03) {
+                    r3 = 7;
+                }
+
+            } else {
+                if (r2 < t2[bowl].getRating() * 0.045) {
+                    r3 = 7;
+                }
+            }
+    }
+    private void set(int count,int i)
     {
         oversFaced = (i + 1) / 6;
         ballBowled = (i + 1) % 6;
-        if(ballBowled==0)
-        {
-            overFinish(count,over,i);
-        }
-        return 37;
+        if((i+1)%6!=0) over++;
     }
-    private int addRuns(int count,int i,int prev,int over)
+    private void swap()
     {
-        if(r3!=7) {
+        t=striker;
+        striker=nonStriker;
+        nonStriker=t;
+    }
+    private int addRuns(Player[]t1,Player[]t2,int count,int i,int prev)
+    {
+        t1[striker].updateRuns(r3%7);
+        count = count + r3%7;
+        t2[bowl].updateRunsGiven(r3%7);
+        t2[bowl].updateBallsDelivered();
+        t1[striker].updateBallsFaced();
 
-            t1[striker].getBatsman().setRuns(r3 + t1[striker].getBatsman().getRuns());
-            count = count + r3;
-            System.out.println(bowl);
-            t2[bowl].getBowler().setRunsgiven(t2[bowl].getBowler().getRunsgiven() + r3 % 7);
-        }
-        t2[bowl].getBowler().setLb(t2[bowl].getBowler().getLb()+1);
-        t1[striker].getBatsman().setBalls(t1[striker].getBatsman().getBalls()+1);
         if(r3==4)
         {
-            t1[striker].getBatsman().setFours(t1[striker].getBatsman().getFours()+1);
+            t1[striker].updateFours();
         }
-        if(r3==6)
+        else if(r3==6)
         {
-            t1[striker].getBatsman().setSixes(t1[striker].getBatsman().getSixes()+1);
+            t1[striker].updateSixes();
         }
-        if(r3%2==1 && r3!=7)
+        else if(r3%2==1 && r3!=7)
         {
-            int t;
-            t=striker;
-            striker= nonStriker;
-            nonStriker =t;
+            swap();
         }
 
         if (r3 == 7) {
-            t1[striker].getBatsman().setOut(t2[bowl].getName());
-            T1.add(t1[striker]);
+            t1[striker].getBatsmanInfo().setOut(t2[bowl].getName());
+            T1.put(t1[striker].getName(),t1[striker].getBatsmanInfo());
             bw.add(t2[bowl].getName());
             run.add(score);
             ov.add((i+1)/6+"."+(i+1)%6);
             wickets++;
-            t2[bowl].getBowler().setWickets(t2[bowl].getBowler().getWickets()+1);
+            t2[bowl].updateWicketsTaken();
+
             striker=Integer.max(striker, nonStriker)+1;
         }
-
         else {
             score = score + r3;
         }
-        if (prev == 0 && wickets == 10) {
-            count=set(count,i,over);
-        }
-        if ( (wickets == 10 || score > prev) && prev>0) {
-            ball=6*getOversFaced()-(i+1);
-            count=set(count,i,over);
-        }
+
         return count;
     }
-    private int overFinish(int count,int over,int i){
+    private int overFinish(Player []t2,int count,int i){
         if(count==0)
         {
-            t2[bowl].getBowler().setMaiden(t2[bowl].getBowler().getMaiden()+1);
+            t2[bowl].updateMaidenOvers();
         }
-        t2[bowl].getBowler().setLb(0);
-        t2[bowl].getBowler().setOverbowled(t2[bowl].getBowler().getOverbowled()+1);
+        t2[bowl].getBowlerInfo().setLb(0);
+        t2[bowl].updateOversBowled();
         over++;
         if(bowl<10)
         {
@@ -159,62 +184,21 @@ public class Innings {
         else if(bowl==10){
             bowl=6;
         }
-        int t;
-        t=striker;
-        striker= nonStriker;
-        nonStriker =t;
+        swap();
 
         return 0;
     }
-    private List<Player> T1=new ArrayList<Player>();
-    private List<Player> T2=new ArrayList<Player>();
-    Player[] t1=new Player[11];
-    Player[] t2=new Player[11];
-    Innings(int overs, int prev, Player Team1[], Player Team2[])
-    {
-        t1=Team1;
-        t2=Team2;
-        //name=Team1[0].getTeam();
-        int i = 0;
-        int over=0;
-
-        oversFaced = overs;
-        int count=0;
-        bowl=6;
-        for (i = 0; i < (6 * overs); i++) {
-            r1=rand.nextFloat();
-            r2=rand.nextFloat();
-            r3 = rand.nextInt(7);
-            setRuns();
-            count=addRuns(count,i,prev,over);
-            if((i+1)%6==0) {
-                count = overFinish(count, over, i);
-            }
-            if(count==37)
-            {
-                break;
-            }
+    private int  InningsFinish(int prev,int count,int i){
+        if (prev == 0 && wickets == 10) {
+            set(count,i);
+            return 37;
         }
-        if(striker<=10 && t1[striker].getBatsman().getOut()=="")
-        {
-            T1.add(t1[striker]);
+        else if ( (wickets == 10 || score > prev) && prev>0) {
+            ballsLeft=6*totalOver-(i+1);
+            set(count,i);
+            return 37;
         }
-        if(nonStriker<=10) {
-            T1.add(t1[nonStriker]);
-        }
-        for(i=0; i<=Integer.min(Integer.max(striker, nonStriker),10); i++)
-        {
-            t1[i].getBatsman().setSR(t1[i].getBatsman().getRuns(),t1[i].getBatsman().getBalls());
-        }
-        if(overs>=5)
-        {
-            overs=5;
-        }
-        for(i=6; i<(6+ (overs%5==0 ? 5 : overs%5)); i++)
-        {
-            t2[i].getBowler().setEco(t2[i].getBowler().getRunsgiven(),t2[i].getBowler().getOverbowled(),t2[i].getBowler().getLb());
-            T2.add(t2[i]);
-        }
-
+        return count;
     }
+
 }
