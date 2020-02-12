@@ -1,6 +1,13 @@
 package com.example.CricketMatch.Beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Team {
+    @JsonIgnore
+    public Player[] getP() {
+        return P;
+    }
+
     Player P[]=new Player[11];
     private String teamName;
     public String getTeamName() {
